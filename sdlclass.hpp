@@ -10,6 +10,7 @@
 class SDL {
 	SDL_Window *window;
 	SDL_Renderer *renderer;
+	SDL_Colour renderClearColour;
 	int width;
 	int height;
 	public:
@@ -19,6 +20,7 @@ class SDL {
 		void drawRectOutline(const SDL_Rect& rect, const SDL_Colour& colour = {0xFF, 0xFF, 0xFF, 0xFF}) const;
 		void renderPresent() const;
 		void clearRenderer() const;
+		void setRenderClearColour(const SDL_Colour& colour);
 		int getWidth() {
 			return width;
 		}
@@ -29,6 +31,8 @@ class SDL {
 
 class SDLException : public std::runtime_error {
 	using std::runtime_error::runtime_error;
+	public:
+		virtual void printError();
 };
 
 #endif

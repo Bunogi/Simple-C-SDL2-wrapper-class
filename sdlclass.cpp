@@ -24,6 +24,7 @@ SDL::SDL(const int windowWidth, const int windowHeight, const std::string& windo
 	}
 
 	SDL_GetWindowSize(window, &width, &height);
+	renderClearColour = {0x3F, 0x3F, 0x3F, 0xFF};
 }
 
 SDL::~SDL() {
@@ -49,7 +50,15 @@ void SDL::renderPresent() const {
 	SDL_RenderPresent(renderer);
 }
 
+void SDL::setRenderClearColour(const SDL_Colour& colour) {
+	renderClearColour = colour;
+}
+
 void SDL::clearRenderer() const {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	SDL_SetRenderDrawColor(renderer, renderClearColour.r, renderClearColour.g, renderClearColour.b, renderClearColour.a);
 	SDL_RenderClear(renderer);
+}
+
+void SDLException::printError() {
+	std::cerr << "SDL Error: " << what() << ": " << SDL_GetError() << "\n";
 }
