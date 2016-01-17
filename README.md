@@ -24,8 +24,8 @@ try {
 		sdlclass.drawRectFill(drawme, pink); //Draw the rectangle drawme with the colour pink
 		sdlclass.renderPresent(); //Update the screen 
 	}
-	catch (SDLException &ex) { //An SDLException will be thrown if something goes wrong, handle it
-		ex.printError(); //Output what went wrong(no need to use SDL_GetError())
-	}
+}
+catch (SDLException &ex) { //An SDLException will be thrown if something goes wrong, handle it
+	ex.printError(); //Output what went wrong(no need to use SDL_GetError())
 }
 ```
