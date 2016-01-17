@@ -13,8 +13,8 @@ To use it, start out with a try block and create an SDL object.
 
 try {
 	SDL sdlclass(800, 600); //Create an SDL window with a width of 800 and height of 600
-	sdlclass.setRenderClearColour({0xFF, 0xFF, 0xFF, 0xFF}); //Always clear the screen in black instead of the default grey
-	SDL_Rect drawme = {300, 500, 200, 200}; 
+	sdlclass.setRenderClearColour({0xFF, 0xFF, 0xFF, 0xFF}); //Clear the screen in white instead of the default grey
+	SDL_Rect drawme = {300, 300, 200, 200}; 
 	SDL_Colour pink = {0xFF, 0x69, 0xB4};
 
 	while (true) { //Drawing/game loop
