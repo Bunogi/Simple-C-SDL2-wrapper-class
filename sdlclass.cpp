@@ -2,13 +2,17 @@
 #include <iostream>
 #include <string>
 
-#include <SDL2/SDL.h>
+#include "SDL.h"
+#include "SDL_ttf.h"
 
 #include "sdlclass.hpp"
 
 SDL::SDL(const int windowWidth, const int windowHeight, const std::string& windowName, std::uint32_t windowFlags, std::uint32_t renderFlags) {
 	window = nullptr;
 	renderer = nullptr;
+	#ifdef TTF_SUPPORT
+	font = nullptr;
+	#endif
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		throw SDLException("SDL_Init");
@@ -26,6 +30,11 @@ SDL::SDL(const int windowWidth, const int windowHeight, const std::string& windo
 	SDL_GetWindowSize(window, &width, &height);
 	renderClearColour = {0x3F, 0x3F, 0x3F, 0xFF};
 	lastTime = thisTime = 0;
+
+	#ifdef TTF_SUPPORT
+	if (TTF_Init() != 0)
+		throw TTFException("TTF_Init");
+	#endif
 }
 
 SDL::~SDL() {
@@ -78,3 +87,36 @@ void SDL::clearRenderer() const {
 void SDLException::printError() {
 	std::cerr << "SDL Error: " << what() << ": " << SDL_GetError() << "\n";
 }
+
+#ifdef TTF_SUPPORT
+void SDL::loadFont(const std::string& fontFile, const int fontSize) {
+	if (font != nullptr) {
+		std::cerr << "Warning: One font already loaded! Replacing it..\n";
+		TTF_CloseFont(font);
+	}
+
+	font = TTF_OpenFont(fontFile.c_str(), fontSize);
+	if (font == nullptr)
+		throw TTFException("TTF_OpenFont");
+}
+
+void SDL::print(const int x, const int y, const std::string& message, const SDL_Colour& colour) const {
+	if (font == nullptr) {
+		throw TTFException("No font loaded!");
+	}
+	SDL_Surface *textSurface = TTF_RenderText_Blended(font, message.c_str(), colour);
+	if (textSurface == nullptr) 
+		throw TTFException("TTF_RenderText_Blended");
+
+	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, textSurface);
+	if (texture == nullptr)
+		throw SDLException("SDL_CreateTextureFromSurface");
+	
+	SDL_Rect destination = {x, y, 0, 0};
+	SDL_QueryTexture(texture, NULL, NULL, &destination.w, &destination.h);
+	SDL_RenderCopy(renderer, texture, NULL, &destination);
+
+	SDL_FreeSurface(textSurface);
+	SDL_DestroyTexture(texture);
+}
+#endif
