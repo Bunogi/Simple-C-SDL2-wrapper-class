@@ -5,9 +5,9 @@ Decided it would be nice to have it as a git repo.
 
 Requires C++11.
 
-If you have a general idea of how SDL2 2D rendering works, it should be relatively simple to use.
+If you have a general idea of how SDL2 2D rendering works, it should be relatively simple to use. If you're having trouble, nag at me in #novaember on freenode.
 
-To use it, start out with a try block and create an SDL object.
+To use it, start out with a try block and create an SDL object:
 
 ```cpp
 
