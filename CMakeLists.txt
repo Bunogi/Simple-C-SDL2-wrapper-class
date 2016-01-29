@@ -1,4 +1,12 @@
 cmake_minimum_required(VERSION 3.4.1 FATAL_ERROR)
+
+option(USE_CLANG "Use Clang for compilation instead of whatever you have by default" OFF)
+
+if(USE_CLANG)
+	message("Compiling with Clang")
+	set(CMAKE_CXX_COMPILER "clang++")
+endif()
+
 project(sdl2cppwrapper)
 
 option(TTF_SUPPORT "Support for printing things to the screen, requires SDL_TTF" OFF)
