@@ -45,7 +45,6 @@ class SDL {
 		#ifdef TTF_SUPPORT
 		void loadFont(const std::string& fontFile, const int fontSize=12);
 		void print(const int x, const int y, const std::string& message, const SDL_Colour& colour = {0xFF, 0xFF, 0xFF, 0xFF}) const;
-		void print(const int x, const int y, const char message, const SDL_Colour& colour = {0xFF, 0xFF, 0xFF, 0xFF}) const;
 		#endif
 };
 
