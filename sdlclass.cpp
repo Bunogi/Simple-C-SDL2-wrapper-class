@@ -1,4 +1,3 @@
-#include <cstdint>
 #include <iostream>
 #include <string>
 
@@ -16,7 +15,7 @@ SDL::SDL(const int windowWidth, const int windowHeight, const std::string& windo
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		throw SDLException("SDL_Init");
-	
+
 	window = SDL_CreateWindow(windowName.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, windowFlags);
 	if (window == nullptr)
 		throw SDLException("SDL_CreateWindow");

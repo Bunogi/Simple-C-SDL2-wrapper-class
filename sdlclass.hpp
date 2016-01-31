@@ -3,9 +3,7 @@
 #pragma once
 
 #include <stdexcept>
-#include <cstdint>
 #include <string>
-
 
 #include "SDL.h"
 #ifdef TTF_SUPPORT
